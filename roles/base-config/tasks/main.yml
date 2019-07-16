@@ -1,0 +1,46 @@
+---
+
+- name: install packages needed on all hosts for deb
+  become: true
+  apt: pkg={{item}} state=installed
+  with_items: '{{ common_deb_packages }}'
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+
+- name: install packages needed on all hosts for rhel
+  become: true
+  yum: 
+    name: "{{item}}" 
+    state: present
+    update_cache: yes
+  with_items: '{{ common_rhel_packages }}'
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux' or ansible_distribution == 'Amazon'
+
+# DON'T USE HOSTNAME FOR VIAWEST HOSTS
+- name: set hostname to inventory value
+  hostname:
+    name: "{{ inventory_hostname }}"
+  become: yes
+
+- name: set selinux policy 
+  selinux:
+    policy: targeted
+    state: "{{ selinux_state }}"
+
+- name: add default rules
+  become: true
+  iptables_raw:
+    name: default_rules
+    weight: 10
+    keep_unmanaged: yes
+    rules: "{{ base_iptable_rules }}"
+
+- name: additional iptables rules iptables
+  become: true
+  iptables_raw:
+    name: '{{ item.name }}'
+    rules: '{{ item.rule }}'
+    table: '{{ item.table }}'
+  when: '{{ additional_iptable_rules }}'
+  with_items:
+  - '{{ additional_iptable_rules }}'

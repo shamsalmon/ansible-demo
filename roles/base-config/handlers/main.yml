@@ -1,0 +1,24 @@
+---
+  - name: restart ssh
+    become: true
+    service: name=ssh state=restarted
+
+  - name: restart sshd
+    become: true
+    service: name=sshd state=restarted
+
+  - name: restart iptables
+    become: true
+    command: service iptables save
+
+  - name: restart iptables-rhel
+    become: true
+    service: name=iptables state=restarted
+
+  - name: restart rsyslog
+    become: true
+    service: name=rsyslog state=restarted
+
+  - name: restart rsyslog
+    become: true
+    service: name=rsyslog state=restarted
