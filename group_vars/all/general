@@ -1,0 +1,19 @@
+ops_dns: "ops.sa.lan"
+graylog_server: graylog.{{ ops_dns }}
+
+common_rhel_packages:
+  - centos-release-scl
+  - sysstat
+  - nss-pam-ldapd
+  - openldap-clients
+  - authconfig
+  - perl
+  - nc
+  - curl
+  - tar
+  - bzip2
+  - vim
+  - git
+  - libselinux-python
+
+selinux_state: "permissive"

@@ -1,0 +1,25 @@
+ansible_ssh_common_args: '-o ProxyCommand="ssh -o StrictHostKeyChecking=no -i keys/id_rsa.enc -W %h:%p -q centos@52.21.62.39"'
+php_version: '7.1'
+
+apache_vhosts:
+  # Additional properties:
+  # 'serveradmin, serveralias, allow_override, options, extra_parameters'.
+  - servername: "planitmed.com"
+    serveralias: "*.planitmed.com"
+    documentroot: "/var/www/html/play_it_health/"
+    allow_override: "All"
+    options: "Indexes FollowSymLinks MultiViews"
+    vhost.extra_parameters: |
+        RewriteEngine On
+
+        # prevent httpd from serving dotfiles (.htaccess, .svn, .git, etc.)
+        RedirectMatch 403 /\..*$
+
+        # if a directory or a file exists, use it directly
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+
+        # otherwise forward it to index.php
+        RewriteRule . index.php
+
+selinux_state: "permissive"
