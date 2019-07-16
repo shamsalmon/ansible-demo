@@ -1,0 +1,5 @@
+---
+- hosts: windows
+  roles:
+    - name: base-windows-config
+      tags: base-windows-config

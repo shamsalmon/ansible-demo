@@ -1,0 +1,10 @@
+*.tblk
+.vagrant
+*.env
+*.retry
+docker.*
+*.bak
+vault_key.txt
+*.swp
+.DS_Store
+id_rsa

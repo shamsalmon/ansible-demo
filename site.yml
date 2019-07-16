@@ -1,0 +1,7 @@
+---
+
+- import_playbook: base-config.yml
+
+- import_playbook: bastion.yml
+
+- import_playbook: application.yml

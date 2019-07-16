@@ -1,0 +1,6 @@
+---
+- hosts: linux
+  become: true
+  roles:
+    - name: base-config
+      tags: base-config
