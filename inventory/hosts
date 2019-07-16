@@ -1,0 +1,16 @@
+[tag_OS_linux]
+
+[tag_OS_Windows]
+
+[windows:children]
+tag_OS_Windows
+
+[linux:children]
+tag_OS_linux
+
+[windows:vars]
+ansible_user=fpsengineer
+ansible_password=2NXRXsSjp%5
+ansible_connection=winrm
+ansible_winrm_transport=basic
+ansible_port=5985
